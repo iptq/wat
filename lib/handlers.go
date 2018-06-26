@@ -80,6 +80,7 @@ func (app *App) HandleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 	}{Data: heartbeatRsp{
 		ID: string(heartbeat.Id),
 	}})
+	w.WriteHeader(http.StatusCreated)
 	w.Write(payload)
 }
 
