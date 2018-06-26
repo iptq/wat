@@ -11,7 +11,7 @@ Roadmap
 - [ ] `GET users/:user/durations`
 - [ ] `GET users/:user/goals`
 - [ ] `GET users/:user/heartbeats`
-- [ ] `POST users/:user/heartbeats`
+- [x] `POST users/:user/heartbeats`
 - [ ] `GET leaders`
 - [ ] `GET users/:user/projects`
 - [ ] `GET users/:user/stats/:range`
