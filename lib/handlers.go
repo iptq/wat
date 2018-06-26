@@ -6,11 +6,8 @@ import (
 	"net/http"
 
 	"github.com/iptq/wat/lib/models"
-	base58 "github.com/itchyny/base58-go"
 	"github.com/thanhpk/randstr"
 )
-
-var encoding = base58.FlickrEncoding
 
 func (app *App) HandleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 	payload, _ := json.Marshal("shiet")
@@ -21,7 +18,11 @@ func (app *App) HandleUserRegister(w http.ResponseWriter, r *http.Request) {
 	var err error
 
 	// for now, just generate a user and return the API key
-	key := randstr.Hex(64)
+	// note: what the fuck
+	p1 := randstr.Hex(2)
+	p2 := randstr.Hex(2)
+	key := randstr.Hex(4) + "-" + randstr.Hex(2) + "-4" + p1[1:] + "-8" + p2[1:] + "-" + randstr.Hex(6)
+
 	log.Println(key)
 
 	user := models.User{
