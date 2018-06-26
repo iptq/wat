@@ -21,10 +21,10 @@ type heartbeatPost struct {
 	Branch   string `json:"branch"`
 	Language string `json:"language"`
 
-	Lines     int  `json:"lines"`
-	LineNo    int  `json:"lineno"`
-	CursorPos int  `json:"cursorpos"`
-	IsWrite   bool `json:"is_write"`
+	Lines   int  `json:"lines"`
+	LineNo  int  `json:"lineno"`
+	IsWrite bool `json:"is_write"`
+	// CursorPos int  `json:"cursorpos"`
 }
 
 type heartbeatRsp struct {
