@@ -3,7 +3,7 @@ FROM golang:onbuild
 RUN mkdir /build
 WORKDIR /build
 COPY . /build/
-RUN GOOS=linux go build -a -installsuffix cgo -o wat .
+RUN GOOS=linux go build -a -o wat .
 
 FROM debian:jessie-slim
 RUN apt-get update -y && apt-get install -y \
