@@ -7,6 +7,7 @@ type User struct {
 	DisplayName string
 	FullName    string
 	Email       string
+	APIKey      string
 
 	EmailPublic    bool
 	EmailConfirmed bool

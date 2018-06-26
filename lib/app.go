@@ -28,10 +28,9 @@ func NewApp() *App {
 		log.Fatal(err)
 	}
 
-	return &App{
-		engine: engine,
-		router: Router(),
-	}
+	app := App{engine: engine, router: nil}
+	app.router = app.Router()
+	return &app
 }
 
 func (app *App) Start() {
