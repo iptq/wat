@@ -11,29 +11,6 @@ import (
 	"github.com/thanhpk/randstr"
 )
 
-type heartbeatPost struct {
-	Entity   string  `json:"entity"`
-	Type     string  `json:"type"`
-	Category string  `json:"category"`
-	Time     float64 `json:"time"`
-
-	Project  string `json:"project"`
-	Branch   string `json:"branch"`
-	Language string `json:"language"`
-
-	Lines   int  `json:"lines"`
-	LineNo  int  `json:"lineno"`
-	IsWrite bool `json:"is_write"`
-	// CursorPos int  `json:"cursorpos"`
-}
-
-type heartbeatRsp struct {
-	ID     string  `json:"id"`
-	Entity string  `json:"entity"`
-	Type   string  `json:"type"`
-	Time   float64 `json:"time"`
-}
-
 func (app *App) HandleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 	// read the payload
 	payload, err := ioutil.ReadAll(r.Body)
@@ -108,4 +85,27 @@ func (app *App) HandleUserRegister(w http.ResponseWriter, r *http.Request) {
 		Key: key,
 	})
 	w.Write(payload)
+}
+
+type heartbeatPost struct {
+	Entity   string  `json:"entity"`
+	Type     string  `json:"type"`
+	Category string  `json:"category"`
+	Time     float64 `json:"time"`
+
+	Project  string `json:"project"`
+	Branch   string `json:"branch"`
+	Language string `json:"language"`
+
+	Lines   int  `json:"lines"`
+	LineNo  int  `json:"lineno"`
+	IsWrite bool `json:"is_write"`
+	// CursorPos int  `json:"cursorpos"`
+}
+
+type heartbeatRsp struct {
+	ID     string  `json:"id"`
+	Entity string  `json:"entity"`
+	Type   string  `json:"type"`
+	Time   float64 `json:"time"`
 }
