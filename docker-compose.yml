@@ -6,5 +6,12 @@ services:
     ports: ["6800:6800"]
     volumes:
       - "./wat.conf:/wat.conf"
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: wat
   redis:
     image: redis
+    restart: always

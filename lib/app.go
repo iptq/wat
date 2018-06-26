@@ -23,7 +23,7 @@ type App struct {
 
 // NewApp constructs a WaT application and returns a pointer to it.
 func NewApp(config Config) *App {
-	engine, err := xorm.NewEngine("sqlite3", config.Database)
+	engine, err := xorm.NewEngine(config.DatabaseProvider, config.Database)
 	if err != nil {
 		log.Fatal(err)
 	}
