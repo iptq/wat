@@ -22,7 +22,7 @@ type App struct {
 }
 
 func NewApp(config Config) *App {
-	engine, err := xorm.NewEngine("sqlite3", "wat.db")
+	engine, err := xorm.NewEngine("sqlite3", config.Database)
 	if err != nil {
 		log.Fatal(err)
 	}
