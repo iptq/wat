@@ -1,7 +1,10 @@
-version: '3'
+version: '3.3'
 
 services:
   wat:
     build: .
+    ports: ["6800:6800"]
+    volumes:
+      - "./wat.conf:/wat.conf"
   redis:
     image: redis
