@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/iptq/wat/lib/models"
+	"git.mzhang.me/wat/wat/lib/models"
 	"github.com/thanhpk/randstr"
 )
 

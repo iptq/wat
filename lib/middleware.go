@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/iptq/wat/lib/models"
+	"git.mzhang.me/wat/wat/lib/models"
 )
 
 func (app *App) authMiddleware(next http.Handler) http.Handler {
