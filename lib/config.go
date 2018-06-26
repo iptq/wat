@@ -4,7 +4,7 @@ package lib
 type Config struct {
 	BindAddress      string `description:"Address to bind to (ex. ':6800')"`
 	DatabaseProvider string `description:"Backend to use for the database { mysql | postgres | sqlite3 }"`
-	Database         string `description:"Location for the database file (ex. 'wat.db')"`
+	Database         string `description:"Access string for the database (ex. 'wat.db' for sqlite3, 'postgres://host:port/dbname' for postgres, etc.)"`
 
 	RedisAddress string `description:"The address of the redis server."`
 	RedisDb      int    `description:"The number of the redis db."`
