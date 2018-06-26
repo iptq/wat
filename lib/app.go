@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"time"
 
-	"git.mzhang.me/wat/wat/lib/models"
 	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
 	"github.com/gorilla/mux"
+	"github.com/iptq/wat/lib/models"
 	_ "github.com/mattn/go-sqlite3"
 )
 

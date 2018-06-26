@@ -8,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"git.mzhang.me/wat/wat/lib"
+	"github.com/iptq/wat/lib"
 	"github.com/thehowl/conf"
 )
 
