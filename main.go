@@ -18,7 +18,7 @@ func main() {
 	configFile := flag.String("conf", "wat.conf", "config file location")
 	flag.Parse()
 
-	config := lib.Config{}
+	config := lib.DefaultCfg
 	err := conf.Load(&config, *configFile)
 	if err == conf.ErrNoFile {
 		conf.Export(lib.DefaultCfg, *configFile)

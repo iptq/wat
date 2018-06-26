@@ -8,7 +8,7 @@ func (app *App) createRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.Use(app.logMiddleware)
 
-	api := router.PathPrefix("/api/v1").Subrouter()
+	api := router.PathPrefix("/").Subrouter()
 	api.Use(app.jsonMiddleware)
 
 	users := api.PathPrefix("/users").Subrouter()
