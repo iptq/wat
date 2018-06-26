@@ -12,7 +12,7 @@ import (
 	"github.com/thanhpk/randstr"
 )
 
-func (app *App) HandleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
+func (app *App) handleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 	// read the payload
 	payload, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -52,7 +52,7 @@ func (app *App) HandleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 
 	// record it in the database
 	doc, err := app.engine.Insert(&heartbeat)
-	log.Println(doc, heartbeat.Id)
+	log.Println(doc, heartbeat.ID)
 	if err != nil {
 		log.Println("db write error", err)
 		return
@@ -62,13 +62,13 @@ func (app *App) HandleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 	payload, _ = json.Marshal(struct {
 		Data heartbeatRsp `json:"data"`
 	}{Data: heartbeatRsp{
-		ID: string(heartbeat.Id),
+		ID: string(heartbeat.ID),
 	}})
 	w.WriteHeader(http.StatusCreated)
 	w.Write(payload)
 }
 
-func (app *App) HandleUserRegister(w http.ResponseWriter, r *http.Request) {
+func (app *App) handleUserRegister(w http.ResponseWriter, r *http.Request) {
 	var err error
 
 	// for now, just generate a user and return the API key

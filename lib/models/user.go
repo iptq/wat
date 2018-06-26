@@ -2,8 +2,9 @@ package models
 
 import "time"
 
+// User describes a user. Not too hard.
 type User struct {
-	Id          int64
+	ID          int64
 	DisplayName string
 	FullName    string
 	Email       string

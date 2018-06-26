@@ -2,8 +2,9 @@ package models
 
 import "time"
 
+// Heartbeat describes a single capture from an application.
 type Heartbeat struct {
-	Id       int64
+	ID       int64
 	Entity   string
 	Type     string
 	Category string

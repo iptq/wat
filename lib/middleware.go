@@ -23,8 +23,8 @@ func (app *App) authMiddleware(next http.Handler) http.Handler {
 			return
 		}
 		decode, _ := base64.StdEncoding.DecodeString(parts[1])
-		api_key := string(decode)
-		has, err := app.engine.Where("api_key = ?", api_key).Get(&user)
+		apiKey := string(decode)
+		has, err := app.engine.Where("api_key = ?", apiKey).Get(&user)
 		if err != nil {
 			log.Println("error:", err)
 			w.WriteHeader(http.StatusForbidden)
@@ -32,7 +32,7 @@ func (app *App) authMiddleware(next http.Handler) http.Handler {
 			return
 		}
 		if !has {
-			log.Println("api key not found:", api_key)
+			log.Println("api key not found:", apiKey)
 			w.WriteHeader(http.StatusForbidden)
 			w.Write([]byte(""))
 			return

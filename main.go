@@ -10,6 +10,8 @@ import (
 
 	"github.com/iptq/wat/lib"
 	"github.com/thehowl/conf"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 func main() {

@@ -11,9 +11,9 @@ import (
 	"github.com/go-xorm/xorm"
 	"github.com/gorilla/mux"
 	"github.com/iptq/wat/lib/models"
-	_ "github.com/mattn/go-sqlite3"
 )
 
+// App describes a WaT application, and holds some of its necessary components.
 type App struct {
 	config Config
 	engine *xorm.Engine
@@ -21,6 +21,7 @@ type App struct {
 	srv    *http.Server
 }
 
+// NewApp constructs a WaT application and returns a pointer to it.
 func NewApp(config Config) *App {
 	engine, err := xorm.NewEngine("sqlite3", config.Database)
 	if err != nil {
@@ -33,10 +34,11 @@ func NewApp(config Config) *App {
 	}
 
 	app := App{config: config, engine: engine, router: nil, srv: nil}
-	app.router = app.Router()
+	app.router = app.createRouter()
 	return &app
 }
 
+// Start runs the given WaT App. This function should be run in a thread if possible.
 func (app *App) Start() {
 	fmt.Printf("Running on '%s'...\n", app.config.BindAddress)
 	app.srv = &http.Server{
@@ -48,6 +50,7 @@ func (app *App) Start() {
 	}
 }
 
+// Close gracefully shuts down the server.
 func (app *App) Close() {
 	var wait time.Duration
 	ctx, cancel := context.WithTimeout(context.Background(), wait)

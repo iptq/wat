@@ -4,7 +4,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func (app *App) Router() *mux.Router {
+func (app *App) createRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.Use(app.logMiddleware)
 
@@ -12,10 +12,10 @@ func (app *App) Router() *mux.Router {
 	api.Use(app.jsonMiddleware)
 
 	users := api.PathPrefix("/users").Subrouter()
-	users.HandleFunc("/register", app.HandleUserRegister).Methods("POST")
+	users.HandleFunc("/register", app.handleUserRegister).Methods("POST")
 
 	protected := users.PathPrefix("/current").Subrouter()
-	protected.HandleFunc("/heartbeats.bulk", app.HandleUserHeartbeat).Methods("POST")
+	protected.HandleFunc("/heartbeats.bulk", app.handleUserHeartbeat).Methods("POST")
 	protected.Use(app.authMiddleware)
 
 	return router
