@@ -1,0 +1,9 @@
+{
+  "name": "wat",
+  "version": "0.1.0",
+  "description": "WakaTime Replacement",
+  "main": "index.js",
+  "repository": "https://github.com/iptq/wat.git",
+  "author": "Michael Zhang",
+  "license": "MIT"
+}
