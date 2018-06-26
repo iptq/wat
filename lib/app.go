@@ -1,9 +1,11 @@
 package lib
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
@@ -13,11 +15,13 @@ import (
 )
 
 type App struct {
+	config Config
 	engine *xorm.Engine
 	router *mux.Router
+	srv    *http.Server
 }
 
-func NewApp() *App {
+func NewApp(config Config) *App {
 	engine, err := xorm.NewEngine("sqlite3", "wat.db")
 	if err != nil {
 		log.Fatal(err)
@@ -28,12 +32,25 @@ func NewApp() *App {
 		log.Fatal(err)
 	}
 
-	app := App{engine: engine, router: nil}
+	app := App{config: config, engine: engine, router: nil, srv: nil}
 	app.router = app.Router()
 	return &app
 }
 
 func (app *App) Start() {
-	fmt.Println("Running...")
-	log.Fatal(http.ListenAndServe(":8000", app.router))
+	fmt.Printf("Running on '%s'...\n", app.config.BindAddress)
+	app.srv = &http.Server{
+		Addr:    app.config.BindAddress,
+		Handler: app.router,
+	}
+	if err := app.srv.ListenAndServe(); err != nil {
+		log.Println(err)
+	}
+}
+
+func (app *App) Close() {
+	var wait time.Duration
+	ctx, cancel := context.WithTimeout(context.Background(), wait)
+	defer cancel()
+	app.srv.Shutdown(ctx)
 }
