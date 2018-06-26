@@ -12,4 +12,9 @@ type Heartbeat struct {
 	Project  string
 	Branch   string
 	Language string
+
+	Lines     int
+	LineNo    int
+	CursorPos int
+	IsWrite   bool
 }

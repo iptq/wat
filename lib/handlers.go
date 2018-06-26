@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"git.mzhang.me/wat/wat/lib/models"
@@ -32,6 +33,7 @@ func (app *App) HandleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 
 	// construct Heartbeat record
 	post := data[0]
+	CursorPos, _ := strconv.Atoi(post.CursorPos)
 	heartbeat := models.Heartbeat{
 		Entity:   post.Entity,
 		Type:     post.Type,
@@ -41,6 +43,11 @@ func (app *App) HandleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 		Project:  post.Project,
 		Branch:   post.Branch,
 		Language: post.Language,
+
+		Lines:     post.Lines,
+		LineNo:    post.LineNo,
+		CursorPos: CursorPos,
+		IsWrite:   post.IsWrite,
 	}
 
 	// record it in the database
@@ -97,10 +104,10 @@ type heartbeatPost struct {
 	Branch   string `json:"branch"`
 	Language string `json:"language"`
 
-	Lines   int  `json:"lines"`
-	LineNo  int  `json:"lineno"`
-	IsWrite bool `json:"is_write"`
-	// CursorPos int  `json:"cursorpos"`
+	Lines     int    `json:"lines"`
+	LineNo    int    `json:"lineno"`
+	IsWrite   bool   `json:"is_write"`
+	CursorPos string `json:"cursorpos"`
 }
 
 type heartbeatRsp struct {
