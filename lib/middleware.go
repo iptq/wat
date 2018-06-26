@@ -37,7 +37,7 @@ func (app *App) authMiddleware(next http.Handler) http.Handler {
 			w.Write([]byte(""))
 			return
 		}
-		log.Println("ok")
+		log.Println("auth ok")
 		next.ServeHTTP(w, r)
 	})
 }
