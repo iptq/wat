@@ -5,12 +5,14 @@ WaT
 
 Drop-in WakaTime replacement.
 
-Plugins
--------
+How To Use
+----------
 
-These plugins have been modified to allow the `api_url` parameter of the `wakatime-cli` to be overrided.
+Under your `~/.wakatime.cfg`, add a line indicating where your `api_url` is pointing to. For example,
 
-- [Sublime Text 3](https://github.com/iptq/sublime-wakatime)
+    api_url=https://wat.mzhang.me/api/v1/heartbeats.bulk
+
+Then, all of your WakaTime-enabled editors should be pointed at the correct place!
 
 Roadmap
 -------
