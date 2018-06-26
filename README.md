@@ -5,6 +5,13 @@ WaT
 
 Drop-in WakaTime replacement.
 
+Plugins
+-------
+
+These plugins have been modified to allow the `api_url` parameter of the `wakatime-cli` to be overrided.
+
+- [Sublime Text 3](https://github.com/iptq/sublime-wakatime)
+
 Roadmap
 -------
 
