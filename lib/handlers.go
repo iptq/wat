@@ -19,7 +19,7 @@ func (app *App) error403(w http.ResponseWriter, r *http.Request) {
 
 func (app *App) publicConfig(w http.ResponseWriter, r *http.Request) {
 	payload, err := json.Marshal(struct {
-		RegistrationEnabled bool `json:"registration_enabled"`
+		RegistrationEnabled bool `json:"registrationEnabled"`
 	}{
 		RegistrationEnabled: app.config.RegistrationEnabled,
 	})

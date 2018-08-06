@@ -7,7 +7,7 @@
 			</vk-navbar-nav>
 			<vk-navbar-nav slot="right">
 				<router-link tag="li" :to="{ name: 'login' }"><a>Login</a></router-link>
-				<router-link tag="li" :to="{ name: 'register' }"><a>Register</a></router-link>
+				<router-link tag="li" :to="{ name: 'register' }" v-if="registrationEnabled"><a>Register</a></router-link>
 			</vk-navbar-nav>
 		</vk-navbar>
 	</div>
@@ -15,6 +15,7 @@
 
 <script>
 	export default {
+		props: ["registrationEnabled"],
 	};
 </script>
 
