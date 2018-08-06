@@ -5,5 +5,23 @@
   "main": "index.js",
   "repository": "https://github.com/iptq/wat.git",
   "author": "Michael Zhang",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "serve": "parcel serve index.html",
+    "watch": "parcel watch index.html"
+  },
+  "dependencies": {
+    "@vuikit/icons": "^0.8.1",
+    "@vuikit/theme": "^0.8.0",
+    "axios": "^0.18.0",
+    "parcel": "^1.9.7",
+    "vue": "^2.5.17",
+    "vue-hot-reload-api": "^2.3.0",
+    "vue-router": "^3.0.1",
+    "vuikit": "^0.8.5"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^2.1.0",
+    "vue-template-compiler": "^2.5.17"
+  }
 }
