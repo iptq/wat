@@ -50,10 +50,6 @@
   version = "1.9.0"
 
 [[constraint]]
-  name = "github.com/thanhpk/randstr"
-  version = "1.0.2"
-
-[[constraint]]
   name = "github.com/thehowl/conf"
   version = "0.1.1"
 

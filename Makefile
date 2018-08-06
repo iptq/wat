@@ -12,8 +12,6 @@ wat: is-go-installed bindata
 
 is-go-installed:
 	go version
-	go get -u -v ./...
-	go get -u 
 
 is-yarn-installed:
-	yarn --version
+	cd web && yarn
