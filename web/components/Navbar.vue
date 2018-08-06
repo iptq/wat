@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<vk-nav>
+		<vk-nav class="tm-nav">
 		</vk-nav>
 	</div>
 </template>
