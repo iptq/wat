@@ -25,6 +25,7 @@ database: "wat.db"
 Make sure the server is running from a location that your computer can reach, since API calls will be made to this server. If you're just serving to yourself, running it on localhost should do the trick. Otherwise, make sure at least the API is reachable.
 
 Client-Side Installation
+------------------------
 
 Under your `~/.wakatime.cfg`, add a line indicating where your `api_url` is pointing to. For example,
 
