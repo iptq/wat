@@ -9,7 +9,20 @@ Drop-in WakaTime replacement.
 How To Use
 ----------
 
-First, you're going to need to set up the WaT server. You should host it from a location that your computer can reach, since API calls will be made to this server. If you're just serving to yourself, running it on localhost should do the trick. Otherwise, make sure at least the API is reachable.
+First, you're going to need to set up the WaT server. The server is looking for a config file in the current directory named `wat.{yml,json,toml}`. Here's a full configuration with descriptions and default values, in YAML. If you choose to use a different format, you should take care to follow the syntax and conventions of that format.
+
+```yml
+# The address for the server to bind to, in the format host:port. Using hostnames is supported.
+bind_address: ":6800"
+
+# Database provider, can be either { postgres | mysql | sqlite3 }. All three are supported out of the box.
+database_provider: "sqlite3"
+
+# The database address, a DSN for either Postgres or MySQL, and a relative file address for Sqlite3.
+database: "wat.db"
+```
+
+Make sure the server is running from a location that your computer can reach, since API calls will be made to this server. If you're just serving to yourself, running it on localhost should do the trick. Otherwise, make sure at least the API is reachable.
 
 Under your `~/.wakatime.cfg`, add a line indicating where your `api_url` is pointing to. For example,
 
