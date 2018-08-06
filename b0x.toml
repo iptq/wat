@@ -1,0 +1,8 @@
+pkg = "static"
+dest = "./static"
+fmt = false
+
+[[custom]]
+files = ["web/dist/*"]
+base = "web/dist"
+

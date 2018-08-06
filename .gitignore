@@ -2,3 +2,6 @@ wat
 wat.db
 wat.conf
 wat.yml
+
+static/*
+!static/.gitkeep

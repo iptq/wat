@@ -38,7 +38,7 @@ func ReadConfig() Config {
 	// read config
 	err := c.ReadInConfig()
 	if err != nil {
-		panic(err)
+		// whatever
 	}
 
 	// TODO: debug
