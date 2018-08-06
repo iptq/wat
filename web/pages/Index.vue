@@ -1,13 +1,8 @@
 <template>
 	<div>
-		<navbar></navbar>
+		hello world
 	</div>
 </template>
 
 <script>
-	import Navbar from "~/components/Navbar";
-
-	export default {
-		components: { Navbar },
-	};
 </script>

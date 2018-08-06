@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/frankenbeanies/uuid4"
 	"github.com/iptq/wat/lib/models"
-	"github.com/thanhpk/randstr"
 )
 
 func (app *App) handleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
@@ -73,7 +73,7 @@ func (app *App) handleUserRegister(w http.ResponseWriter, r *http.Request) {
 
 	// for now, just generate a user and return the API key
 	// note: what the fuck
-	key := randstr.Hex(4) + "-" + randstr.Hex(2) + "-4" + randstr.Hex(2)[1:] + "-8" + randstr.Hex(2)[1:] + "-" + randstr.Hex(6)
+	key := uuid4.New().String()
 
 	// insert user into the database
 	user := models.User{
