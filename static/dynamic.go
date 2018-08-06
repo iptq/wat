@@ -4,6 +4,6 @@ package static
 
 import "net/http"
 
-func StaticFS() http.Handler {
-	return http.FileServer(http.Dir("./web/dist"))
+func StaticFS() http.FileSystem {
+	return http.Dir("./web/dist")
 }
