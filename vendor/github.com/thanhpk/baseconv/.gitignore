@@ -1,0 +1,4 @@
+coverage.out
+*.pl
+*.php
+*.js
