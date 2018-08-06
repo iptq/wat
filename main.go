@@ -9,6 +9,7 @@ import (
 	"syscall"
 
 	"github.com/iptq/wat/lib"
+	"github.com/spf13/viper"
 	"github.com/thehowl/conf"
 
 	// include database backend drivers
@@ -18,11 +19,21 @@ import (
 )
 
 func main() {
+	viper.SetDefault("BindAddress", ":6800")
+	viper.SetConfigName("wat")
+	viper.AddConfigPath(".")
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%+v", viper.AllKeys())
+
 	configFile := flag.String("conf", "wat.conf", "config file location")
 	flag.Parse()
 
 	config := lib.DefaultCfg
-	err := conf.Load(&config, *configFile)
+	err = conf.Load(&config, *configFile)
 	if err == conf.ErrNoFile {
 		conf.Export(lib.DefaultCfg, *configFile)
 		fmt.Println("Default configuration written to " + *configFile)
