@@ -2,13 +2,14 @@ package lib
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/iptq/wat/static"
 )
 
 func (app *App) createRouter() *mux.Router {
 	router := mux.NewRouter()
 	router.Use(app.logMiddleware)
 
-	api := router.PathPrefix("/").Subrouter()
+	api := router.PathPrefix("/api").Subrouter()
 	api.Use(app.jsonMiddleware)
 
 	api.HandleFunc("/config", app.publicConfig).Methods("GET")
@@ -23,6 +24,8 @@ func (app *App) createRouter() *mux.Router {
 	protected := users.PathPrefix("/current").Subrouter()
 	protected.HandleFunc("/heartbeats.bulk", app.handleUserHeartbeat).Methods("POST")
 	protected.Use(app.authMiddleware)
+
+	router.PathPrefix("/").Handler(static.StaticFS())
 
 	return router
 }
