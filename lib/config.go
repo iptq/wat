@@ -8,9 +8,11 @@ import (
 
 // Config describes the application configuration.
 type Config struct {
-	BindAddress      string `description:"Address to bind to (ex. ':6800')"`
-	DatabaseProvider string `description:"Backend to use for the database { mysql | postgres | sqlite3 }"`
-	Database         string `description:"Access string for the database (ex. 'wat.db' for sqlite3, 'postgres://host:port/dbname' for postgres, etc.)"`
+	BindAddress      string
+	DatabaseProvider string
+	Database         string
+
+	RegistrationEnabled bool
 }
 
 func ReadConfig() Config {
@@ -21,12 +23,14 @@ func ReadConfig() Config {
 	c.SetDefault("bind_address", ":6800")
 	c.SetDefault("database_provider", "sqlite3")
 	c.SetDefault("database", "wat.db")
+	c.SetDefault("registration_enabled", false)
 
 	// set up search locations
 	c.SetEnvPrefix("wat")
 	c.BindEnv("bind_address")
 	c.BindEnv("database_provider")
 	c.BindEnv("database")
+	c.BindEnv("registration_enabled")
 
 	c.SetConfigName("wat")
 	c.AddConfigPath(".")
@@ -37,10 +41,13 @@ func ReadConfig() Config {
 		panic(err)
 	}
 
+	// TODO: debug
 	fmt.Printf("%+v\n", c.AllKeys())
 	return Config{
-		BindAddress:      c.Get("bind_address").(string),
-		DatabaseProvider: c.Get("database_provider").(string),
-		Database:         c.Get("database").(string),
+		BindAddress:      c.GetString("bind_address"),
+		DatabaseProvider: c.GetString("database_provider"),
+		Database:         c.GetString("database"),
+
+		RegistrationEnabled: c.GetBool("registration_enabled"),
 	}
 }

@@ -12,6 +12,24 @@ import (
 	"github.com/iptq/wat/lib/models"
 )
 
+func (app *App) error403(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusForbidden)
+	w.Write([]byte(""))
+}
+
+func (app *App) publicConfig(w http.ResponseWriter, r *http.Request) {
+	payload, err := json.Marshal(struct {
+		RegistrationEnabled bool `json:"registration_enabled"`
+	}{
+		RegistrationEnabled: app.config.RegistrationEnabled,
+	})
+	if err != nil {
+		// fuck it lol
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write(payload)
+}
+
 func (app *App) handleUserHeartbeat(w http.ResponseWriter, r *http.Request) {
 	// read the payload
 	payload, err := ioutil.ReadAll(r.Body)

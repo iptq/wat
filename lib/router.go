@@ -11,8 +11,14 @@ func (app *App) createRouter() *mux.Router {
 	api := router.PathPrefix("/").Subrouter()
 	api.Use(app.jsonMiddleware)
 
+	api.HandleFunc("/config", app.publicConfig).Methods("GET")
+
 	users := api.PathPrefix("/users").Subrouter()
-	users.HandleFunc("/register", app.handleUserRegister).Methods("POST")
+	if app.config.RegistrationEnabled {
+		users.HandleFunc("/register", app.handleUserRegister).Methods("POST")
+	} else {
+		users.HandleFunc("/register", app.error403).Methods("POST")
+	}
 
 	protected := users.PathPrefix("/current").Subrouter()
 	protected.HandleFunc("/heartbeats.bulk", app.handleUserHeartbeat).Methods("POST")

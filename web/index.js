@@ -15,6 +15,10 @@ Vue.use(http);
 Vue.use(Vuikit);
 Vue.use(VuikitIcons);
 
+Vue.prototype.$extras = {
+	apiBase: process.env.API_BASE || "http://localhost:6800",
+};
+
 new Vue({
 	el: "#app",
 	router,

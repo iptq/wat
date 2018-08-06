@@ -6,6 +6,15 @@ WaT
 
 Drop-in WakaTime replacement.
 
+Contents
+--------
+
+- [Server-Side Installation](#server-side-installation)
+- [Client-Side Installation](#client-side-installation)
+- [Why?](#why)
+- [Roadmap](#roadmap)
+- [Contact](#contact)
+
 Server-Side Installation
 ------------------------
 
@@ -20,6 +29,10 @@ database_provider: "sqlite3"
 
 # The database address, a DSN for either Postgres or MySQL, and a relative file address for Sqlite3.
 database: "wat.db"
+
+# Whether or not registration is open to anyone who views your page. If disabled, users will have to be manually registered through the CLI.
+# Note: this is false by default
+registration_enabled: false
 ```
 
 Make sure the server is running from a location that your computer can reach, since API calls will be made to this server. If you're just serving to yourself, running it on localhost should do the trick. Otherwise, make sure at least the API is reachable.
