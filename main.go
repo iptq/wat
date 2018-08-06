@@ -11,6 +11,8 @@ import (
 	"github.com/iptq/wat/lib"
 	"github.com/thehowl/conf"
 
+	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -18,7 +20,7 @@ func main() {
 	configFile := flag.String("conf", "wat.conf", "config file location")
 	flag.Parse()
 
-	config := lib.Config{}
+	config := lib.DefaultCfg
 	err := conf.Load(&config, *configFile)
 	if err == conf.ErrNoFile {
 		conf.Export(lib.DefaultCfg, *configFile)
