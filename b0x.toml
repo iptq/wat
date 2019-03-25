@@ -1,9 +1,0 @@
-pkg = "static"
-dest = "./static"
-fmt = false
-tags = "bindata"
-
-[[custom]]
-files = ["web/dist/*"]
-base = "web/dist/"
-

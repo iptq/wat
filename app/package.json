@@ -14,14 +14,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.0",
-    "vue-hot-reload-api": "^2.3.0",
+    "vue-hot-reload-api": "^2.3.3",
     "vue-material": "^1.0.0-beta-10.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.2"
   },
   "devDependencies": {
-    "@vue/component-compiler-utils": "^2.1.0",
-    "parcel": "^1.9.7",
+    "@vue/component-compiler-utils": "^2.6.0",
     "sass": "^1.17.3",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.6.10"
   }
 }
