@@ -3,21 +3,17 @@
 wat: is-go-installed bindata
 	go build -o $@ -tags bindata
 
-web/dist/index.html: is-yarn-installed
-	cd web && yarn run build
+app/dist/index.html: is-yarn-installed
+	cd app && yarn run build
 
-bindata: web/dist/index.html
-	fileb0x b0x.toml
+bindata: app/dist/index.html
 
-wat-dev: is-go-installed web/dist/index.html 
-	go build -o $@
+wat: is-go-installed bindata
+	go build -v ./cmd/wat
 
 is-go-installed:
 	go version
 	go get -v github.com/UnnoTed/fileb0x
 
 is-yarn-installed:
-	cd web && yarn
-
-all: wat wat-dev
-
+	cd app && yarn

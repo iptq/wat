@@ -1,0 +1,26 @@
+{
+  "name": "wat",
+  "version": "0.1.0",
+  "description": "WakaTime Replacement",
+  "main": "index.js",
+  "repository": "https://github.com/iptq/wat.git",
+  "author": "Michael Zhang",
+  "license": "MIT",
+  "scripts": {
+    "build": "parcel build index.html",
+    "serve": "parcel serve index.html",
+    "watch": "parcel watch index.html"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap-vue": "^2.0.0-rc.15",
+    "vue": "^2.5.17",
+    "vue-hot-reload-api": "^2.3.0",
+    "vue-router": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^2.1.0",
+    "parcel": "^1.9.7",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
