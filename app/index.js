@@ -4,12 +4,12 @@ import VueRouter from "vue-router";
 import { http, router } from "./http";
 import App from "./App";
 
-import BootstrapVue from "bootstrap-vue";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
+import VueMaterial from "vue-material";
+import "vue-material/dist/vue-material.min.css";
+import "vue-material/dist/theme/default.css";
 
 Vue.use(http);
-Vue.use(BootstrapVue);
+Vue.use(VueMaterial);
 
 Vue.prototype.$extras = {
 	apiBase: process.env.API_BASE || "http://localhost:6800",

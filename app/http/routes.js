@@ -1,4 +1,5 @@
 import PageIndex from "../pages/Index";
+import PageLogin from "../pages/Login";
 
 export default [
 	{
@@ -10,7 +11,7 @@ export default [
 	{
 		path: "/login",
 		name: "login",
-		component: PageIndex,
+		component: PageLogin,
 		title: "Login",
 	},
 	{
