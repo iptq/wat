@@ -4,3 +4,9 @@ wat.db
 wat.conf
 wat.yml
 
+#Added by cargo
+#
+#already existing elements are commented out
+
+/target
+**/*.rs.bk

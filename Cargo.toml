@@ -1,0 +1,18 @@
+[package]
+name = "wat"
+version = "0.1.0"
+authors = ["Michael Zhang <iptq@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+derivative = "1.0"
+diesel = { version = "1.4", features = ["postgres", "mysql", "sqlite"] }
+hex = "0.3"
+packer = "0.4"
+rand = "0.6"
+rocket = "0.4"
+rocket_contrib = { version = "0.4", default-features = false, features = ["tera_templates"] }
+serde = "1.0"
+serde_derive = "1.0"
+structopt = "0.2"
+toml = "0.5"
