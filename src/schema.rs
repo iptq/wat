@@ -1,31 +1,31 @@
 table! {
     heartbeats (id) {
-        id -> Int4,
-        entity -> Varchar,
+        id -> Nullable<Integer>,
+        entity -> Text,
         #[sql_name = "type"]
-        type_ -> Varchar,
-        category -> Varchar,
+        type_ -> Text,
+        category -> Text,
         time -> Timestamp,
-        project -> Varchar,
-        branch -> Varchar,
-        language -> Varchar,
-        lines -> Int4,
-        line_number -> Int4,
-        cursor_pos -> Int4,
+        project -> Text,
+        branch -> Text,
+        language -> Text,
+        lines -> Integer,
+        line_number -> Integer,
+        cursor_pos -> Integer,
         is_write -> Bool,
-        user_id -> Int4,
+        user_id -> Integer,
     }
 }
 
 table! {
     users (id) {
-        id -> Int4,
-        email -> Varchar,
-        display_name -> Nullable<Varchar>,
-        api_key -> Nullable<Varchar>,
+        id -> Nullable<Integer>,
+        email -> Text,
+        display_name -> Nullable<Text>,
+        api_key -> Nullable<Text>,
         email_confirmed -> Bool,
-        website -> Nullable<Varchar>,
-        location -> Nullable<Varchar>,
+        website -> Nullable<Text>,
+        location -> Nullable<Text>,
         last_heartbeat -> Nullable<Timestamp>,
         email_public -> Bool,
         logged_time_public -> Bool,
@@ -37,7 +37,4 @@ table! {
 
 joinable!(heartbeats -> users (user_id));
 
-allow_tables_to_appear_in_same_query!(
-    heartbeats,
-    users,
-);
+allow_tables_to_appear_in_same_query!(heartbeats, users,);

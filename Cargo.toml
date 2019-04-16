@@ -4,9 +4,13 @@ version = "0.1.0"
 authors = ["Michael Zhang <iptq@protonmail.com>"]
 edition = "2018"
 
+[features]
+default = ["sqlite"]
+sqlite = ["rocket_contrib/diesel_sqlite_pool"]
+
 [dependencies]
 derivative = "1.0"
-diesel = { version = "1.4", features = ["postgres", "mysql", "sqlite"] }
+diesel = { version = "1.4", features = ["extras"] }
 hex = "0.3"
 packer = "0.4"
 rand = "0.6"

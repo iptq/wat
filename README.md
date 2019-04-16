@@ -1,9 +1,6 @@
 WaT
 ===
 
-[![Travis](https://img.shields.io/travis/iptq/wat.svg)](https://travis-ci.org/iptq/wat)
-[![GoReportCard](https://goreportcard.com/badge/github.com/iptq/wat)](https://goreportcard.com/report/github.com/iptq/wat)
-
 Drop-in WakaTime replacement.
 
 Contents
@@ -64,7 +61,7 @@ API:
 - [ ] `GET users/:user/durations`
 - [ ] `GET users/:user/goals`
 - [ ] `GET users/:user/heartbeats`
-- [x] `POST users/:user/heartbeats`
+- [ ] `POST users/:user/heartbeats`
 - [ ] `GET leaders`
 - [ ] `GET users/:user/projects`
 - [ ] `GET users/:user/stats/:range`
