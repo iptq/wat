@@ -11,6 +11,12 @@ use crate::context::Context;
 use crate::db::DbConn;
 use crate::models::{NewUser, User};
 
+#[get("/login")]
+pub fn login(ctx: Context, mut cookies: Cookies) -> Template {
+    let mut ctx = ctx.into_inner();
+    Template::render("login", &ctx)
+}
+
 #[get("/register")]
 pub fn register(ctx: Context, mut cookies: Cookies) -> Template {
     let mut ctx = ctx.into_inner();

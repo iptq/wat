@@ -1,0 +1,32 @@
+{% extends "layout" %}
+{% block title %}Login - {% endblock %}
+
+{% block content %}
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="column is-6 is-offset-3">
+                    <h3 class="title has-text-grey has-text-centered">Login</h3>
+                    <div class="box">
+                        <form method="POST">
+                            <div class="field">
+                                <label class="label">Email*</label>
+                                <div class="control">
+                                    <input name="email" type="email" autocomplete="off" placeholder="Email" class="input is-medium" aria-required="true" aria-invalid="false">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Password*</label>
+                                <div class="control">
+                                    <input name="password" type="password" placeholder="Password" class="input is-medium" required="true">
+                                </div>
+                            </div>
+                            <button class="button is-block is-info is-fullwidth">Login</button>
+                        </form>
+                    </div>
+                    <div class="has-text-grey has-text-centered"><a href="/register">Need an account?</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

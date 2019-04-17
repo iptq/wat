@@ -8,6 +8,7 @@ pub fn routes() -> Vec<Route> {
     routes![
         self::base::index,
         self::stats::dashboard,
+        self::users::login,
         self::users::register,
         self::users::post_register,
     ]

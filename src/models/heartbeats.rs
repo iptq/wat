@@ -2,6 +2,7 @@ use chrono::NaiveDateTime;
 
 use crate::schema::heartbeats;
 
+#[derive(Queryable)]
 pub struct Heartbeat {
     pub id: i32,
     pub user_id: i32,

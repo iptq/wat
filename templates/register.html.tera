@@ -38,7 +38,7 @@
                             </div> <button class="button is-block is-info is-fullwidth">Register</button>
                         </form>
                     </div>
-                    <div class="has-text-grey has-text-centered"><a href="/users/login" class="">Already have an account?</a></div>
+                    <div class="has-text-grey has-text-centered"><a href="/login">Already have an account?</a></div>
                 </div>
             </div>
         </div>
