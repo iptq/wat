@@ -1,19 +1,19 @@
 table! {
     heartbeats (id) {
         id -> Integer,
+        user_id -> Integer,
         entity -> Text,
-        #[sql_name = "type"]
-        type_ -> Text,
+        entity_type -> Text,
         category -> Text,
         time -> Timestamp,
-        project -> Text,
-        branch -> Text,
-        language -> Text,
+        project -> Nullable<Text>,
+        branch -> Nullable<Text>,
+        language -> Nullable<Text>,
+        dependencies -> Nullable<Text>,
         lines -> Integer,
-        line_number -> Integer,
-        cursor_pos -> Integer,
+        line_number -> Nullable<Integer>,
+        cursor_pos -> Nullable<Integer>,
         is_write -> Bool,
-        user_id -> Integer,
     }
 }
 
@@ -23,7 +23,7 @@ table! {
         email -> Text,
         password -> Text,
         display_name -> Nullable<Text>,
-        api_key -> Nullable<Text>,
+        api_key -> Text,
         email_confirmed -> Bool,
         website -> Nullable<Text>,
         location -> Nullable<Text>,
@@ -37,7 +37,4 @@ table! {
 
 joinable!(heartbeats -> users (user_id));
 
-allow_tables_to_appear_in_same_query!(
-    heartbeats,
-    users,
-);
+allow_tables_to_appear_in_same_query!(heartbeats, users,);

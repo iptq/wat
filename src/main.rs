@@ -12,7 +12,9 @@ extern crate rocket_contrib;
 extern crate serde_derive;
 
 mod api_v1;
+mod captcha;
 mod config;
+mod context;
 mod db;
 mod errors;
 mod migrate;
@@ -23,9 +25,11 @@ mod views;
 use rocket_contrib::{serve::StaticFiles, templates::Template};
 use structopt::StructOpt;
 
+use crate::captcha::Captcha;
 use crate::config::Config;
+use crate::context::Context;
 use crate::db::DbConn;
-use crate::errors::{Error};
+use crate::errors::Error;
 
 #[derive(StructOpt)]
 enum Opt {

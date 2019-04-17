@@ -8,29 +8,32 @@
                 <div class="column is-6 is-offset-3">
                     <h3 class="title has-text-grey has-text-centered">Register</h3>
                     <div class="box">
-                        <form>
-                            <div class="field">
-                                <label class="label">Email</label>
-                                <div class="control">
-                                    <input name="email" type="email" autocomplete="off" placeholder="Email" autofocus="autofocus" class="input is-medium" aria-required="true" aria-invalid="false">
-                                </div>
-                            </div>
+                        <form method="POST">
                             <div class="field">
                                 <label class="label">Display Name</label>
                                 <div class="control">
-                                    <input name="username" type="username" autocomplete="off" placeholder="Username" class="input is-medium" aria-required="true" aria-invalid="false">
+                                    <input name="display_name" type="text" autofocus="autofocus" autocomplete="off" placeholder="Display Name" class="input is-medium" required="true">
                                 </div>
                             </div>
                             <div class="field">
-                                <label class="label">Password</label>
+                                <label class="label">Email*</label>
                                 <div class="control">
-                                    <input name="password" type="password" placeholder="Password" class="input is-medium" aria-required="true" aria-invalid="false">
+                                    <input name="email" type="email" autocomplete="off" placeholder="Email" class="input is-medium" aria-required="true" aria-invalid="false">
                                 </div>
                             </div>
                             <div class="field">
-                                <label class="label">Captcha</label>
+                                <label class="label">Password*</label>
                                 <div class="control">
-                                    <input name="captcha" type="text" autocomplete="off" placeholder="Captcha" class="input" aria-required="true" aria-invalid="false">
+                                    <input name="password" type="password" placeholder="Password" class="input is-medium" required="true">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Captcha*</label>
+                                <div class="has-text-centered">
+                                    <img src="{{ captcha_img }}" />
+                                </div>
+                                <div class="control">
+                                    <input name="captcha" type="text" autocomplete="off" placeholder="Captcha" class="input" required="true">
                                 </div>
                             </div> <button class="button is-block is-info is-fullwidth">Register</button>
                         </form>

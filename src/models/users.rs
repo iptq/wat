@@ -6,8 +6,8 @@ use rocket::outcome::{IntoOutcome, Outcome};
 use rocket::request::{self, FromRequest, Request};
 
 use crate::db::{DbConn, PooledConn};
-use crate::Error;
 use crate::schema::users;
+use crate::Error;
 
 #[derive(Queryable)]
 pub struct User {
@@ -15,7 +15,7 @@ pub struct User {
     pub email: String,
     pub password: String,
     pub display_name: Option<String>,
-    pub api_key: Option<String>,
+    pub api_key: String,
 
     pub email_confirmed: bool,
     pub website: Option<String>,
@@ -35,6 +35,7 @@ pub struct NewUser {
     pub email: String,
     pub display_name: Option<String>,
     pub password: String,
+    pub api_key: String,
 }
 
 impl<'a, 'r> FromRequest<'a, 'r> for User {
