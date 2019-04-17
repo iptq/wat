@@ -14,17 +14,18 @@ extern crate serde_derive;
 mod api_v1;
 mod config;
 mod db;
+mod errors;
 mod migrate;
 mod models;
 mod schema;
 mod views;
 
-use diesel::r2d2::{ConnectionManager, Pool};
-use rocket_contrib::templates::Template;
+use rocket_contrib::{serve::StaticFiles, templates::Template};
 use structopt::StructOpt;
 
 use crate::config::Config;
-use crate::db::Database;
+use crate::db::DbConn;
+use crate::errors::{Error};
 
 #[derive(StructOpt)]
 enum Opt {
@@ -51,9 +52,10 @@ fn main() {
             let config = Config::read().unwrap();
 
             rocket::ignite()
-                .attach(Database::fairing())
+                .attach(DbConn::fairing())
                 .attach(Template::fairing())
                 .mount("/api/v1", api_v1::routes())
+                .mount("/static", StaticFiles::from("static"))
                 .mount("/", views::routes())
                 .launch();
         }

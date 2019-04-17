@@ -9,13 +9,15 @@ default = ["sqlite"]
 sqlite = ["rocket_contrib/diesel_sqlite_pool"]
 
 [dependencies]
+captcha = "0.0"
+chrono = "0.4"
 derivative = "1.0"
 diesel = { version = "1.4", features = ["extras"] }
 hex = "0.3"
 packer = "0.4"
 rand = "0.6"
 rocket = "0.4"
-rocket_contrib = { version = "0.4", default-features = false, features = ["tera_templates"] }
+rocket_contrib = { version = "0.4", default-features = false, features = ["serve", "tera_templates"] }
 serde = "1.0"
 serde_derive = "1.0"
 structopt = "0.2"

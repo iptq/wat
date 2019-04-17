@@ -1,4 +1,7 @@
+use diesel::SqliteConnection;
 use rocket_contrib::databases::diesel;
 
 #[database("database")]
-pub struct Database(diesel::SqliteConnection);
+pub struct DbConn(SqliteConnection);
+
+pub type PooledConn = SqliteConnection;

@@ -1,0 +1,7 @@
+#nav-toggle-state {
+    display: none;
+}
+
+#nav-toggle-state:checked ~ .navbar-menu {
+    display: block;
+}

@@ -1,6 +1,6 @@
 table! {
     heartbeats (id) {
-        id -> Nullable<Integer>,
+        id -> Integer,
         entity -> Text,
         #[sql_name = "type"]
         type_ -> Text,
@@ -19,22 +19,25 @@ table! {
 
 table! {
     users (id) {
-        id -> Nullable<Integer>,
+        id -> Integer,
         email -> Text,
+        password -> Text,
         display_name -> Nullable<Text>,
         api_key -> Nullable<Text>,
         email_confirmed -> Bool,
         website -> Nullable<Text>,
         location -> Nullable<Text>,
-        last_heartbeat -> Nullable<Timestamp>,
         email_public -> Bool,
         logged_time_public -> Bool,
         languages_used_public -> Bool,
+        last_heartbeat -> Nullable<Timestamp>,
         registered_time -> Timestamp,
-        last_active_time -> Timestamp,
     }
 }
 
 joinable!(heartbeats -> users (user_id));
 
-allow_tables_to_appear_in_same_query!(heartbeats, users,);
+allow_tables_to_appear_in_same_query!(
+    heartbeats,
+    users,
+);
