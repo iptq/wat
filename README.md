@@ -53,8 +53,15 @@ Roadmap
 
 General usability:
 
-- [ ] Web interface
-  - [ ] Registration
+- [] Web interface
+  - [x] Registration
+  - [ ] Login
+  - [ ] Dashboard
+    - [ ] Day-by-day breakdown
+    - [ ] Project breakdown
+    - [ ] Language breakdown
+    - [ ] Editor breakdown
+    - [ ] Project list
 
 API:
 
@@ -70,6 +77,7 @@ API:
 - [ ] `GET users/:user/teams/:team/members`
 - [ ] `GET users/:user/teams`
 - [ ] `GET users/:user/user_agents`
+- [x] `POST /users/current/heartbeats`
 
 Contact
 -------
