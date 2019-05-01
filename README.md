@@ -68,7 +68,6 @@ API:
 - [ ] `GET users/:user/durations`
 - [ ] `GET users/:user/goals`
 - [ ] `GET users/:user/heartbeats`
-- [ ] `POST users/:user/heartbeats`
 - [ ] `GET leaders`
 - [ ] `GET users/:user/projects`
 - [ ] `GET users/:user/stats/:range`
@@ -77,6 +76,7 @@ API:
 - [ ] `GET users/:user/teams/:team/members`
 - [ ] `GET users/:user/teams`
 - [ ] `GET users/:user/user_agents`
+- [x] `POST users/:user/heartbeats`
 - [x] `POST /users/current/heartbeats`
 
 Contact
