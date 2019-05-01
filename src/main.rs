@@ -5,6 +5,10 @@ extern crate derivative;
 #[macro_use]
 extern crate diesel;
 #[macro_use]
+extern crate diesel_migrations;
+#[macro_use]
+extern crate log;
+#[macro_use]
 extern crate rocket;
 #[macro_use]
 extern crate rocket_contrib;
@@ -17,9 +21,9 @@ mod config;
 mod context;
 mod db;
 mod errors;
-mod migrate;
 mod models;
 mod schema;
+mod utils;
 mod views;
 
 use rocket_contrib::{serve::StaticFiles, templates::Template};
@@ -51,7 +55,7 @@ fn main() {
             let output = toml::to_string_pretty(&config).expect("default config should not panic");
             println!("{}", output);
         }
-        Opt::Migrate => (),
+        Opt::Migrate => {}
         Opt::RunServer => {
             let config = Config::read().unwrap();
 

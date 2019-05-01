@@ -1,0 +1,6 @@
+{% extends "layout" %}
+{% block title %}Dashboard - {% endblock %}
+
+{% block content %}
+
+{% endblock %}

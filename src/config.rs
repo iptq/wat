@@ -5,6 +5,8 @@ use hex::FromHexError;
 use rand::{thread_rng, Rng};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
+use crate::utils::{as_hex, from_hex, generate_secret_key};
+
 #[derive(Debug, Derivative, Serialize, Deserialize)]
 #[derivative(Default)]
 pub struct Config {
@@ -19,27 +21,4 @@ impl Config {
     pub fn read() -> Result<Self, io::Error> {
         Ok(Self::default())
     }
-}
-
-/// Generate a random secret key.
-fn generate_secret_key() -> Vec<u8> {
-    let mut rng = thread_rng();
-    let bytes = rng.gen::<[u8; 32]>();
-    bytes.to_vec()
-}
-
-fn as_hex<S>(key: &Vec<u8>, serializer: S) -> Result<S::Ok, S::Error>
-where
-    S: Serializer,
-{
-    serializer.serialize_str(&hex::encode(&key[..]))
-}
-
-fn from_hex<'de, D>(deserializer: D) -> Result<Vec<u8>, D::Error>
-where
-    D: Deserializer<'de>,
-{
-    use serde::de::Error;
-    String::deserialize(deserializer)
-        .map(|string| hex::decode(&string).expect("hex failed to decode"))
 }

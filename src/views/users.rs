@@ -3,8 +3,8 @@ use diesel::result::Error::RollbackTransaction;
 use rocket::http::{Cookie, Cookies};
 use rocket::request::Form;
 use rocket::response::Redirect;
-use rocket_contrib::templates::{Template};
-use uuid::{Uuid, adapter::Hyphenated};
+use rocket_contrib::templates::Template;
+use uuid::{adapter::Hyphenated, Uuid};
 
 use crate::captcha::{Captcha, CaptchaText};
 use crate::context::Context;
@@ -15,6 +15,17 @@ use crate::models::{NewUser, User};
 pub fn login(ctx: Context, mut cookies: Cookies) -> Template {
     let mut ctx = ctx.into_inner();
     Template::render("login", &ctx)
+}
+
+#[derive(FromForm)]
+pub struct LoginForm {
+    email: String,
+    password: String,
+}
+
+#[post("/login", data = "<form>")]
+pub fn post_login(conn: DbConn, form: Form<LoginForm>) -> Redirect {
+    Redirect::to(uri!(super::stats::dashboard))
 }
 
 #[get("/register")]
@@ -77,13 +88,15 @@ pub fn post_register(
         .unwrap();
 
     login_user(&mut cookies, &user);
-
-    Redirect::to(uri!(super::base::index))
+    Redirect::to(uri!(super::stats::dashboard))
 }
 
 fn generate_api_key() -> String {
     let mut buf = [b'!'; Hyphenated::LENGTH];
-    Uuid::new_v4().to_hyphenated_ref().encode_lower(&mut buf).to_owned()
+    Uuid::new_v4()
+        .to_hyphenated_ref()
+        .encode_lower(&mut buf)
+        .to_owned()
 }
 
 fn login_user(cookies: &mut Cookies, user: &User) {
