@@ -53,7 +53,7 @@ Roadmap
 
 General usability:
 
-- [] Web interface
+- [ ] Web interface
   - [x] Registration
   - [ ] Login
   - [ ] Dashboard
