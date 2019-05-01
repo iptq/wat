@@ -1,6 +1,7 @@
 wat
 wat-dev
 /test.db
+/wat.db
 wat.conf
 wat.yml
 
