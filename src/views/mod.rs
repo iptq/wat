@@ -11,6 +11,7 @@ pub fn routes() -> Vec<Route> {
         self::stats::dashboard,
         self::users::login,
         self::users::post_login,
+        self::users::logout,
         self::users::register,
         self::users::post_register,
         self::users::settings,

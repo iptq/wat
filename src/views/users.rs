@@ -38,6 +38,12 @@ pub fn post_login(
     Ok(Redirect::to(uri!(super::stats::dashboard)))
 }
 
+#[get("/logout")]
+pub fn logout(mut cookies: Cookies) -> Redirect {
+    cookies.remove_private(Cookie::named("user_id"));
+    Redirect::to(uri!(super::base::index))
+}
+
 #[get("/register")]
 pub fn register(ctx: Context, mut cookies: Cookies) -> Template {
     let mut ctx = ctx.into_inner();

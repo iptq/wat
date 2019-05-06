@@ -1,5 +1,6 @@
 mod api_key;
 mod heartbeats;
+mod stats;
 
 use rocket::Route;
 
