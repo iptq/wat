@@ -1,8 +1,10 @@
 [development]
 template_dir = "templates"
+secret_key = "7+475cjiTIpvQaGAqvlFK3NV3r09QlIghaD5Vn6aVoc="
 
 [production]
 template_dir = "templates"
+secret_key = "7+475cjiTIpvQaGAqvlFK3NV3r09QlIghaD5Vn6aVoc="
 
 [global.databases]
 database = { url = "test.db" }

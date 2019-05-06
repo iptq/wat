@@ -1,4 +1,5 @@
 mod base;
+mod forms;
 mod stats;
 mod users;
 
@@ -9,7 +10,9 @@ pub fn routes() -> Vec<Route> {
         self::base::index,
         self::stats::dashboard,
         self::users::login,
+        self::users::post_login,
         self::users::register,
         self::users::post_register,
+        self::users::settings,
     ]
 }

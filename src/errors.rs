@@ -26,6 +26,9 @@ define_error! {
         Bcrypt(bcrypt::BcryptError),
         Migrations(diesel_migrations::RunMigrationsError),
     }
+}
 
-    pub UserError {}
+#[derive(Debug)]
+pub enum UserError {
+    InvalidUsernameOrPassword,
 }

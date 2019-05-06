@@ -9,7 +9,7 @@ use crate::db::{DbConn, PooledConn};
 use crate::errors::Error;
 use crate::schema::users;
 
-#[derive(Queryable)]
+#[derive(Debug, Queryable, Serialize, Deserialize)]
 pub struct User {
     pub id: i32,
     pub email: String,

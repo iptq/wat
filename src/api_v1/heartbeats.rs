@@ -4,13 +4,14 @@ use rocket_contrib::json::Json;
 
 use super::ApiKey;
 use crate::db::{DbConn, PooledConn};
+use crate::errors::Error;
 use crate::models::{Heartbeat, NewHeartbeat, User};
 
 #[derive(Serialize)]
 pub struct HeartbeatData {
     pub entity: String,
     pub entity_type: String,
-    pub category: String,
+    pub category: Option<String>,
     pub time: f64,
     pub project: Option<String>,
     pub branch: Option<String>,
@@ -18,7 +19,7 @@ pub struct HeartbeatData {
     pub dependencies: Option<String>,
     pub lines: i32,
     pub line_number: Option<i32>,
-    pub cursor_pos: Option<i32>,
+    pub cursor_pos: Option<String>,
     pub is_write: bool,
 }
 
@@ -75,52 +76,44 @@ pub struct PostHeartbeatData {
 #[derive(Serialize)]
 pub struct PostHeartbeatResult {
     pub id: i32,
-    pub entity: String,
-    #[serde(rename = "type")]
-    pub entity_type: String,
     pub time: f64,
 }
 
-#[post("/users/current/heartbeats", format = "json", data = "<heartbeat>")]
+#[post("/users/current/heartbeats", format = "json", data = "<heartbeats>")]
 pub fn post_current_user_heartbeats(
     conn: DbConn,
     api_key: ApiKey,
-    // heartbeat: String,
-    heartbeat: Json<Vec<PostHeartbeatData>>,
-) -> Json<&'static str> {
+    heartbeats: Json<Vec<PostHeartbeatData>>,
+) -> Result<Json<PostHeartbeatResult>, Error> {
     let user = api_key.0;
-    // let heartbeat = heartbeat.into_inner();
+    let heartbeats = heartbeats.into_inner();
     let time = Utc::now().naive_utc();
 
-    info!("body: {:?}", heartbeat);
-    Json("thanks")
+    use crate::schema::heartbeats;
+    for heartbeat in heartbeats {
+        let new_heartbeat = NewHeartbeat {
+            user_id: user.id,
+            entity: heartbeat.entity,
+            entity_type: heartbeat.entity_type,
+            category: heartbeat.category,
+            time: time,
+            project: heartbeat.project,
+            branch: heartbeat.branch,
+            language: heartbeat.language,
+            dependencies: Some(heartbeat.dependencies.join(",")),
+            lines: heartbeat.lines,
+            line_number: heartbeat.lineno,
+            cursor_pos: heartbeat.cursorpos,
+            is_write: heartbeat.is_write.unwrap_or_else(|| false),
+        };
+        diesel::insert_into(heartbeats::table)
+            .values(&new_heartbeat)
+            .execute(&conn.0)?;
+    }
 
-    // let new_heartbeat = NewHeartbeat {
-    //     user_id: user.id,
-    //     entity: heartbeat.entity,
-    //     entity_type: heartbeat.entity_type,
-    //     category: heartbeat.category,
-    //     time: time,
-    //     project: heartbeat.project,
-    //     branch: heartbeat.branch,
-    //     language: heartbeat.language,
-    //     dependencies: heartbeat.dependencies,
-    //     lines: heartbeat.lines,
-    //     line_number: heartbeat.lineno,
-    //     cursor_pos: heartbeat.cursorpos,
-    //     is_write: heartbeat.is_write.unwrap_or_else(|| false),
-    // };
-
-    // use crate::schema::heartbeats;
-    // diesel::insert_into(heartbeats::table)
-    //     .values(&new_heartbeat)
-    //     .execute(&conn.0);
-
-    // let result = PostHeartbeatResult {
-    //     id: 0,
-    //     entity: new_heartbeat.entity,
-    //     entity_type: new_heartbeat.entity_type,
-    //     time: time.timestamp() as f64,
-    // };
-    // Json(result)
+    let result = PostHeartbeatResult {
+        id: 0,
+        time: time.timestamp() as f64,
+    };
+    Ok(Json(result))
 }

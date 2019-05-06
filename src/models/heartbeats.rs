@@ -8,7 +8,7 @@ pub struct Heartbeat {
     pub user_id: i32,
     pub entity: String,
     pub entity_type: String,
-    pub category: String,
+    pub category: Option<String>,
     pub time: NaiveDateTime,
     pub project: Option<String>,
     pub branch: Option<String>,
@@ -16,7 +16,7 @@ pub struct Heartbeat {
     pub dependencies: Option<String>,
     pub lines: i32,
     pub line_number: Option<i32>,
-    pub cursor_pos: Option<i32>,
+    pub cursor_pos: Option<String>,
     pub is_write: bool,
 }
 
@@ -26,7 +26,7 @@ pub struct NewHeartbeat {
     pub user_id: i32,
     pub entity: String,
     pub entity_type: String,
-    pub category: String,
+    pub category: Option<String>,
     pub time: NaiveDateTime,
     pub project: Option<String>,
     pub branch: Option<String>,
@@ -34,6 +34,6 @@ pub struct NewHeartbeat {
     pub dependencies: Option<String>,
     pub lines: i32,
     pub line_number: Option<i32>,
-    pub cursor_pos: Option<i32>,
+    pub cursor_pos: Option<String>,
     pub is_write: bool,
 }

@@ -16,9 +16,7 @@ extern crate rocket_contrib;
 extern crate serde_derive;
 
 mod api_v1;
-mod captcha;
 mod config;
-mod context;
 mod db;
 mod errors;
 mod models;
@@ -29,9 +27,7 @@ mod views;
 use rocket_contrib::{serve::StaticFiles, templates::Template};
 use structopt::StructOpt;
 
-use crate::captcha::Captcha;
 use crate::config::Config;
-use crate::context::Context;
 use crate::db::DbConn;
 
 #[derive(StructOpt)]
@@ -66,7 +62,7 @@ fn main() {
     match opt {
         Opt::Migrate => {
             let db = DbConn::get_one(&rocket).expect("failed to get db");
-            db.migrate();
+            db.migrate().expect("failed to migrate db");
         }
         Opt::RunServer => {
             error!("{}", rocket.launch());

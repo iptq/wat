@@ -12,7 +12,7 @@ sqlite = ["rocket_contrib/diesel_sqlite_pool"]
 base64 = "0.10"
 bcrypt = "0.4"
 captcha = "0.0"
-chrono = "0.4"
+chrono = { version = "0.4", features = ["serde"] }
 derivative = "1.0"
 diesel = { version = "1.4", features = ["extras"] }
 diesel_migrations = "1.4"

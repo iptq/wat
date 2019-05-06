@@ -4,7 +4,7 @@ table! {
         user_id -> Integer,
         entity -> Text,
         entity_type -> Text,
-        category -> Text,
+        category -> Nullable<Text>,
         time -> Timestamp,
         project -> Nullable<Text>,
         branch -> Nullable<Text>,
@@ -12,7 +12,7 @@ table! {
         dependencies -> Nullable<Text>,
         lines -> Integer,
         line_number -> Nullable<Integer>,
-        cursor_pos -> Nullable<Integer>,
+        cursor_pos -> Nullable<Text>,
         is_write -> Bool,
     }
 }

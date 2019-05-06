@@ -55,7 +55,7 @@ General usability:
 
 - [ ] Web interface
   - [x] Registration
-  - [ ] Login
+  - [x] Login
   - [ ] Dashboard
     - [ ] Day-by-day breakdown
     - [ ] Project breakdown

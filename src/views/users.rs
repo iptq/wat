@@ -6,11 +6,12 @@ use rocket::response::Redirect;
 use rocket_contrib::templates::Template;
 use uuid::{adapter::Hyphenated, Uuid};
 
-use crate::captcha::{Captcha, CaptchaText};
-use crate::context::Context;
 use crate::db::DbConn;
-use crate::errors::Error;
+use crate::errors::{Error, UserError};
 use crate::models::{NewUser, User};
+use crate::utils::Context;
+use crate::utils::{Captcha, CaptchaText};
+use crate::views::forms::{LoginForm, RegisterForm};
 
 #[get("/login")]
 pub fn login(ctx: Context, mut cookies: Cookies) -> Template {
@@ -18,15 +19,23 @@ pub fn login(ctx: Context, mut cookies: Cookies) -> Template {
     Template::render("login", &ctx)
 }
 
-#[derive(FromForm)]
-pub struct LoginForm {
-    email: String,
-    password: String,
-}
-
 #[post("/login", data = "<form>")]
-pub fn post_login(conn: DbConn, form: Form<LoginForm>) -> Redirect {
-    Redirect::to(uri!(super::stats::dashboard))
+pub fn post_login(
+    db: DbConn,
+    form: Form<LoginForm>,
+    mut cookies: Cookies,
+) -> Result<Redirect, Error> {
+    let user = match db.get_user_by_email(&form.email)? {
+        Some(user) => user,
+        None => return Err(Error::User(UserError::InvalidUsernameOrPassword)),
+    };
+
+    if !bcrypt::verify(&form.password, &user.password)? {
+        return Err(Error::User(UserError::InvalidUsernameOrPassword));
+    }
+
+    login_user(&mut cookies, &user);
+    Ok(Redirect::to(uri!(super::stats::dashboard)))
 }
 
 #[get("/register")]
@@ -46,17 +55,9 @@ pub fn register(ctx: Context, mut cookies: Cookies) -> Template {
     Template::render("register", &ctx)
 }
 
-#[derive(FromForm)]
-pub struct RegisterForm {
-    email: String,
-    display_name: Option<String>,
-    password: String,
-    captcha: String,
-}
-
 #[post("/register", data = "<form>")]
 pub fn post_register(
-    conn: DbConn,
+    db: DbConn,
     form: Form<RegisterForm>,
     captcha_text: CaptchaText,
     mut cookies: Cookies,
@@ -71,23 +72,16 @@ pub fn post_register(
         password: password_hash,
         api_key: generate_api_key(),
     };
-
-    let user = conn.0.transaction(|| {
-        use crate::schema::users::{self, dsl};
-        match diesel::insert_into(users::table)
-            .values(&new_user)
-            .execute(&conn.0)
-        {
-            Err(err) => return Err(RollbackTransaction),
-            _ => println!("Inserted!"),
-        };
-        dsl::users
-            .filter(dsl::email.eq(&new_user.email))
-            .first(&conn.0)
-    })?;
+    let user = db.insert_user(new_user)?;
 
     login_user(&mut cookies, &user);
     Ok(Redirect::to(uri!(super::stats::dashboard)))
+}
+
+#[get("/settings")]
+pub fn settings(ctx: Context, user: User) -> Template {
+    let mut ctx = ctx.into_inner();
+    Template::render("settings", &ctx)
 }
 
 fn generate_api_key() -> String {

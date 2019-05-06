@@ -1,5 +1,11 @@
+mod captcha;
+mod context;
+
 use rand::{thread_rng, Rng};
 use serde::{Deserialize, Deserializer, Serializer};
+
+pub use self::captcha::{Captcha, CaptchaText};
+pub use self::context::Context;
 
 /// Generate a random secret key.
 pub fn generate_secret_key() -> Vec<u8> {

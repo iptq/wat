@@ -6,6 +6,7 @@
 
         <link rel="stylesheet" href="/static/bulma.min.css" />
         <link rel="stylesheet" href="/static/main.css" />
+        {% block styles %}{% endblock %}
     </head>
 
     <body>
@@ -25,12 +26,19 @@
                         <a href="/about" class="navbar-item">About</a>
                     </div>
                     <div class="navbar-end">
-                        <a href="/login" class="navbar-item">Login</a>
-                        <a href="/register" class="navbar-item">Register</a>
+                        {% if user %}
+                            <a href="/dashboard" class="navbar-item">Dashboard</a>
+                            <a href="/settings" class="navbar-item">Settings</a>
+                        {% else %}
+                            <a href="/login" class="navbar-item">Login</a>
+                            <a href="/register" class="navbar-item">Register</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </nav>
         {% block content %}{% endblock %}
+
+        {% block scripts %}{% endblock %}
     </body>
 </html>

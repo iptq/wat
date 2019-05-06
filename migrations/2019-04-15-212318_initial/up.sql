@@ -25,7 +25,7 @@ CREATE TABLE "heartbeats" (
 
     "entity" VARCHAR(64) NOT NULL,
     "entity_type" VARCHAR(64) NOT NULL,
-    "category" VARCHAR(64) NOT NULL,
+    "category" VARCHAR(64),
     "time" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     "project" VARCHAR(64),
@@ -35,6 +35,6 @@ CREATE TABLE "heartbeats" (
 
     "lines" INTEGER NOT NULL,
     "line_number" INTEGER,
-    "cursor_pos" INTEGER,
+    "cursor_pos" VARCHAR(64),
     "is_write" BOOLEAN NOT NULL DEFAULT FALSE
 );

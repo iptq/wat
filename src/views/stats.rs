@@ -1,7 +1,7 @@
 use rocket_contrib::templates::Template;
 
-use crate::context::Context;
 use crate::models::User;
+use crate::utils::Context;
 
 #[get("/dashboard")]
 pub fn dashboard(ctx: Context, user: User) -> Template {

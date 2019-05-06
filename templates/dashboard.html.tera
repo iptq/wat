@@ -4,3 +4,7 @@
 {% block content %}
 
 {% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="/static/d3.min.js"></script>
+{% endblock %}
