@@ -1,11 +1,13 @@
 mod captcha;
 mod context;
+mod either;
 
 use rand::{thread_rng, Rng};
 use serde::{Deserialize, Deserializer, Serializer};
 
 pub use self::captcha::{Captcha, CaptchaText};
 pub use self::context::Context;
+pub use self::either::Either;
 
 /// Generate a random secret key.
 pub fn generate_secret_key() -> Vec<u8> {
