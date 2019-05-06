@@ -2,7 +2,7 @@ use rocket::outcome::IntoOutcome;
 use rocket::request::{self, FromRequest, Request};
 use rocket_contrib::templates::tera::Context as Ctx;
 
-use crate::Error;
+use crate::errors::Error;
 
 pub struct Context(pub Ctx);
 

@@ -10,6 +10,7 @@ sqlite = ["rocket_contrib/diesel_sqlite_pool"]
 
 [dependencies]
 base64 = "0.10"
+bcrypt = "0.4"
 captcha = "0.0"
 chrono = "0.4"
 derivative = "1.0"

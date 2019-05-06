@@ -33,7 +33,6 @@ use crate::captcha::Captcha;
 use crate::config::Config;
 use crate::context::Context;
 use crate::db::DbConn;
-use crate::errors::Error;
 
 #[derive(StructOpt)]
 enum Opt {
@@ -49,23 +48,29 @@ enum Opt {
 
 fn main() {
     let opt = Opt::from_args();
-    match opt {
-        Opt::GenerateConfig => {
-            let config = Config::default();
-            let output = toml::to_string_pretty(&config).expect("default config should not panic");
-            println!("{}", output);
-        }
-        Opt::Migrate => {}
-        Opt::RunServer => {
-            let config = Config::read().unwrap();
+    if let Opt::GenerateConfig = opt {
+        let config = Config::default();
+        let output = toml::to_string_pretty(&config).expect("default config should not panic");
+        println!("{}", output);
+        return;
+    }
 
-            rocket::ignite()
-                .attach(DbConn::fairing())
-                .attach(Template::fairing())
-                .mount("/api/v1", api_v1::routes())
-                .mount("/static", StaticFiles::from("static"))
-                .mount("/", views::routes())
-                .launch();
+    let config = Config::read().unwrap();
+    let rocket = rocket::ignite()
+        .attach(DbConn::fairing())
+        .attach(Template::fairing())
+        .mount("/api/v1", api_v1::routes())
+        .mount("/static", StaticFiles::from("static"))
+        .mount("/", views::routes());
+
+    match opt {
+        Opt::Migrate => {
+            let db = DbConn::get_one(&rocket).expect("failed to get db");
+            db.migrate();
         }
+        Opt::RunServer => {
+            error!("{}", rocket.launch());
+        }
+        Opt::GenerateConfig => unreachable!(),
     }
 }

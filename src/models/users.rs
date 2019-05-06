@@ -6,8 +6,8 @@ use rocket::outcome::{IntoOutcome, Outcome};
 use rocket::request::{self, FromRequest, Request};
 
 use crate::db::{DbConn, PooledConn};
+use crate::errors::Error;
 use crate::schema::users;
-use crate::Error;
 
 #[derive(Queryable)]
 pub struct User {

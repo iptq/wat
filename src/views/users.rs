@@ -9,6 +9,7 @@ use uuid::{adapter::Hyphenated, Uuid};
 use crate::captcha::{Captcha, CaptchaText};
 use crate::context::Context;
 use crate::db::DbConn;
+use crate::errors::Error;
 use crate::models::{NewUser, User};
 
 #[get("/login")]
@@ -59,36 +60,34 @@ pub fn post_register(
     form: Form<RegisterForm>,
     captcha_text: CaptchaText,
     mut cookies: Cookies,
-) -> Redirect {
+) -> Result<Redirect, Error> {
     // TODO: validation
     let form = form.into_inner();
 
+    let password_hash = bcrypt::hash(&form.password, bcrypt::DEFAULT_COST).map_err(Error::from)?;
     let new_user = NewUser {
         email: form.email,
         display_name: form.display_name,
-        password: form.password,
+        password: password_hash,
         api_key: generate_api_key(),
     };
 
-    let user = conn
-        .0
-        .transaction(|| {
-            use crate::schema::users::{self, dsl};
-            match diesel::insert_into(users::table)
-                .values(&new_user)
-                .execute(&conn.0)
-            {
-                Err(err) => return Err(RollbackTransaction),
-                _ => println!("Inserted!"),
-            };
-            dsl::users
-                .filter(dsl::email.eq(&new_user.email))
-                .first(&conn.0)
-        })
-        .unwrap();
+    let user = conn.0.transaction(|| {
+        use crate::schema::users::{self, dsl};
+        match diesel::insert_into(users::table)
+            .values(&new_user)
+            .execute(&conn.0)
+        {
+            Err(err) => return Err(RollbackTransaction),
+            _ => println!("Inserted!"),
+        };
+        dsl::users
+            .filter(dsl::email.eq(&new_user.email))
+            .first(&conn.0)
+    })?;
 
     login_user(&mut cookies, &user);
-    Redirect::to(uri!(super::stats::dashboard))
+    Ok(Redirect::to(uri!(super::stats::dashboard)))
 }
 
 fn generate_api_key() -> String {

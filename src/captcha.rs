@@ -5,7 +5,7 @@ use captcha::{
 use rocket::outcome::Outcome;
 use rocket::request::{self, FromRequest, Request};
 
-use crate::Error;
+use crate::errors::Error;
 
 pub struct Captcha(pub Cap);
 
