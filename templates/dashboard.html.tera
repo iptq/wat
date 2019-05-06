@@ -2,7 +2,39 @@
 {% block title %}Dashboard - {% endblock %}
 
 {% block content %}
-
+    <div class="container">
+        <h1 class="title">Dashboard</h1>
+        <div class="columns">
+            <div class="column is-half">
+                <div class="box">
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="box">
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-half">
+                <div class="box">
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="box">
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-half">
+                <div class="box">
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="box">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
