@@ -29,6 +29,8 @@
                         {% if user %}
                             <a href="/dashboard" class="navbar-item">Dashboard</a>
                             <a href="/settings" class="navbar-item">Settings</a>
+                            <a href="/profile" class="navbar-item"><b>{{ user.name }}</b></a>
+                            <a href="/logout" class="navbar-item">Logout</a>
                         {% else %}
                             <a href="/login" class="navbar-item">Login</a>
                             <a href="/register" class="navbar-item">Register</a>

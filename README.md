@@ -54,14 +54,23 @@ Roadmap
 General usability:
 
 - [ ] Web interface
-  - [x] Registration
-  - [x] Login
+  - [ ] User-related Stuff
+      - [x] Registration
+      - [x] Login
+      - [ ] Logout
+      - [ ] Forgot password
+      - [ ] Change password
+      - [ ] 2FA
+      - [ ] OAuth with Github????
   - [ ] Dashboard
     - [ ] Day-by-day breakdown
     - [ ] Project breakdown
     - [ ] Language breakdown
     - [ ] Editor breakdown
     - [ ] Project list
+  - [ ] Teams(really long-term unless there are volunteers!)
+  - [ ] Import
+  - [ ] Export
 
 API:
 
