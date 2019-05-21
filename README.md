@@ -5,6 +5,8 @@ Work-in-progress drop-in WakaTime replacement.
 
 **NOTE:** WaT is still in early phases of development, nothing is final yet.
 
+Demo(incomplete) version is running at https://wat.iptq.io.
+
 Why?
 ----
 
