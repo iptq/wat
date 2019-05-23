@@ -21,8 +21,12 @@ macro_rules! define_error {
 
 define_error! {
     pub Error {
-        Diesel(diesel::result::Error),
         User(UserError),
+
+        Utf8(std::string::FromUtf8Error),
+
+        Base64(base64::DecodeError),
+        Diesel(diesel::result::Error),
         Bcrypt(bcrypt::BcryptError),
         Migrations(diesel_migrations::RunMigrationsError),
     }
@@ -31,4 +35,6 @@ define_error! {
 #[derive(Debug)]
 pub enum UserError {
     InvalidUsernameOrPassword,
+    BadApiKey,
+    BadApiRequest,
 }

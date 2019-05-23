@@ -1,6 +1,6 @@
-use rocket::Request;
 use rocket::http::Status;
 use rocket::response::{Responder, Response};
+use rocket::Request;
 
 use crate::errors::Error;
 
@@ -9,7 +9,11 @@ pub enum Either<A, B> {
     B(B),
 }
 
-impl<'r, A, B> Responder<'r> for Either<A, B> where A: Responder<'r>, B: Responder<'r> {
+impl<'r, A, B> Responder<'r> for Either<A, B>
+where
+    A: Responder<'r>,
+    B: Responder<'r>,
+{
     fn respond_to(self, request: &Request) -> Result<Response<'r>, Status> {
         match self {
             Either::A(responder) => responder.respond_to(request),

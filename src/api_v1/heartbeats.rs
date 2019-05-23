@@ -2,7 +2,7 @@ use chrono::Utc;
 use diesel::prelude::*;
 use rocket_contrib::json::Json;
 
-use super::ApiKey;
+use super::Auth;
 use crate::db::{DbConn, PooledConn};
 use crate::errors::Error;
 use crate::models::{Heartbeat, NewHeartbeat, User};
@@ -31,9 +31,12 @@ pub struct HeartbeatResult {
     pub timezone: String,
 }
 
-fn get_user_heartbeats(conn: &PooledConn, user: &User) -> Json<HeartbeatResult> {
+fn get_user_heartbeats(conn: &DbConn, user: &User) -> Json<HeartbeatResult> {
     use crate::schema::heartbeats::dsl::{heartbeats, user_id};
-    let hbs: Vec<Heartbeat> = heartbeats.filter(user_id.eq(user.id)).load(conn).unwrap();
+    let hbs: Vec<Heartbeat> = heartbeats
+        .filter(user_id.eq(user.id))
+        .load(&conn.0)
+        .unwrap();
 
     let result = HeartbeatResult {
         data: Vec::new(),
@@ -45,15 +48,15 @@ fn get_user_heartbeats(conn: &PooledConn, user: &User) -> Json<HeartbeatResult> 
 }
 
 #[get("/users/<user_id>/heartbeats")]
-pub fn user_heartbeats(conn: DbConn, user_id: i32, _api_key: ApiKey) -> Json<HeartbeatResult> {
-    let user = User::by_id(&conn.0, user_id).unwrap();
-    get_user_heartbeats(&conn.0, &user)
+pub fn user_heartbeats(conn: DbConn, user_id: i32, _auth: Auth) -> Json<HeartbeatResult> {
+    let user = User::by_id(&conn, user_id).unwrap();
+    get_user_heartbeats(&conn, &user)
 }
 
 #[get("/users/current/heartbeats")]
-pub fn current_user_heartbeats(conn: DbConn, api_key: ApiKey) -> Json<HeartbeatResult> {
-    let user = api_key.0;
-    get_user_heartbeats(&conn.0, &user)
+pub fn current_user_heartbeats(conn: DbConn, auth: Auth) -> Json<HeartbeatResult> {
+    let user = auth.0;
+    get_user_heartbeats(&conn, &user)
 }
 
 #[derive(Debug, Deserialize)]
@@ -82,10 +85,10 @@ pub struct PostHeartbeatResult {
 #[post("/users/current/heartbeats", format = "json", data = "<heartbeats>")]
 pub fn post_current_user_heartbeats(
     conn: DbConn,
-    api_key: ApiKey,
+    auth: Auth,
     heartbeats: Json<Vec<PostHeartbeatData>>,
 ) -> Result<Json<PostHeartbeatResult>, Error> {
-    let user = api_key.0;
+    let user = auth.0;
     let heartbeats = heartbeats.into_inner();
     let time = Utc::now().naive_utc();
 

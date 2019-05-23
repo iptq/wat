@@ -38,5 +38,6 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="text/javascript" src="/static/d3.min.js"></script>
+    <script type="text/javascript" src="/static/chart.min.js"></script>
+    <script type="text/javascript" src="/static/graphs.js"></script>
 {% endblock %}

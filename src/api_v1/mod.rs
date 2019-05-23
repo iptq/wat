@@ -1,15 +1,17 @@
-mod api_key;
+mod auth;
 mod heartbeats;
-mod stats;
+mod summary;
 
 use rocket::Route;
 
-use self::api_key::ApiKey;
+use self::auth::Auth;
 
 pub fn routes() -> Vec<Route> {
     routes![
         self::heartbeats::user_heartbeats,
         self::heartbeats::current_user_heartbeats,
         self::heartbeats::post_current_user_heartbeats,
+        self::summary::user_summaries,
+        self::summary::current_user_summaries,
     ]
 }
