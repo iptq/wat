@@ -1,32 +1,32 @@
 table! {
     heartbeats (id) {
-        id -> Integer,
-        user_id -> Integer,
-        entity -> Text,
-        entity_type -> Text,
-        category -> Nullable<Text>,
+        id -> Int4,
+        user_id -> Int4,
+        entity -> Varchar,
+        entity_type -> Varchar,
+        category -> Nullable<Varchar>,
         time -> Timestamp,
-        project -> Nullable<Text>,
-        branch -> Nullable<Text>,
-        language -> Nullable<Text>,
-        dependencies -> Nullable<Text>,
-        lines -> Integer,
-        line_number -> Nullable<Integer>,
-        cursor_pos -> Nullable<Text>,
+        project -> Nullable<Varchar>,
+        branch -> Nullable<Varchar>,
+        language -> Nullable<Varchar>,
+        dependencies -> Nullable<Varchar>,
+        lines -> Int4,
+        line_number -> Nullable<Int4>,
+        cursor_pos -> Nullable<Int4>,
         is_write -> Bool,
     }
 }
 
 table! {
     users (id) {
-        id -> Integer,
-        email -> Text,
-        password -> Text,
-        display_name -> Nullable<Text>,
-        api_key -> Text,
+        id -> Int4,
+        email -> Varchar,
+        password -> Varchar,
+        display_name -> Nullable<Varchar>,
+        api_key -> Varchar,
         email_confirmed -> Bool,
-        website -> Nullable<Text>,
-        location -> Nullable<Text>,
+        website -> Nullable<Varchar>,
+        location -> Nullable<Varchar>,
         email_public -> Bool,
         logged_time_public -> Bool,
         languages_used_public -> Bool,
@@ -37,4 +37,7 @@ table! {
 
 joinable!(heartbeats -> users (user_id));
 
-allow_tables_to_appear_in_same_query!(heartbeats, users,);
+allow_tables_to_appear_in_same_query!(
+    heartbeats,
+    users,
+);

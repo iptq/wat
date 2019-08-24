@@ -16,7 +16,7 @@ pub struct Heartbeat {
     pub dependencies: Option<String>,
     pub lines: i32,
     pub line_number: Option<i32>,
-    pub cursor_pos: Option<String>,
+    pub cursor_pos: Option<i32>,
     pub is_write: bool,
 }
 
@@ -34,6 +34,6 @@ pub struct NewHeartbeat {
     pub dependencies: Option<String>,
     pub lines: i32,
     pub line_number: Option<i32>,
-    pub cursor_pos: Option<String>,
+    pub cursor_pos: Option<i32>,
     pub is_write: bool,
 }

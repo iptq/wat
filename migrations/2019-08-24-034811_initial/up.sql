@@ -35,6 +35,6 @@ CREATE TABLE "heartbeats" (
 
     "lines" INTEGER NOT NULL,
     "line_number" INTEGER,
-    "cursor_pos" VARCHAR(64),
+    "cursor_pos" INTEGER,
     "is_write" BOOLEAN NOT NULL DEFAULT FALSE
 );

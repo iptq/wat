@@ -71,6 +71,7 @@ enum StatType {
 fn calculate_stat(
     by: StatType,
     heartbeats: &Vec<Heartbeat>,
+    timeout: usize,
     out: &mut HashMap<NaiveDateTime, SummaryItem>,
 ) {
 
@@ -90,10 +91,10 @@ fn get_user_summaries(
     let heartbeats = conn.heartbeats_interval(user.id, start_dt, end_dt, None)?;
     let mut data = HashMap::new();
 
-    calculate_stat(StatType::Project, &heartbeats, &mut data);
-    calculate_stat(StatType::Language, &heartbeats, &mut data);
-    calculate_stat(StatType::Editor, &heartbeats, &mut data);
-    calculate_stat(StatType::OperatingSystem, &heartbeats, &mut data);
+    calculate_stat(StatType::Project, &heartbeats, 900, &mut data);
+    calculate_stat(StatType::Language, &heartbeats, 900, &mut data);
+    calculate_stat(StatType::Editor, &heartbeats, 900, &mut data);
+    calculate_stat(StatType::OperatingSystem, &heartbeats, 900, &mut data);
 
     let data = data.into_iter().map(|(_, item)| item).collect();
     let result = SummaryResult {
@@ -125,4 +126,29 @@ pub fn current_user_summaries(
     let user = auth.0;
     let params = params.into_inner();
     get_user_summaries(&conn, &user, params)
+}
+
+#[test]
+fn test_calculate_stat() {
+    let activity = vec![
+
+
+Heartbeat {
+    id: 1,
+    user_id: 1,
+    entity: "file1.rs".to_owned(),
+    entity_type: "file".to_owned(),
+    category: Some("coding".to_owned()),
+    time: NaiveDateTime,
+    project: Some("wat".into()),
+    branch: Some("master".into()),
+    language: Some("Rust".into()),
+    dependencies: None,
+    lines: 128,
+    line_number: None,
+    cursor_pos: Some(1770),
+    is_write: false,
+}
+    ];
+
 }

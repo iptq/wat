@@ -19,7 +19,7 @@ pub struct HeartbeatData {
     pub dependencies: Option<String>,
     pub lines: i32,
     pub line_number: Option<i32>,
-    pub cursor_pos: Option<String>,
+    pub cursor_pos: Option<i32>,
     pub is_write: bool,
 }
 
@@ -72,7 +72,7 @@ pub struct PostHeartbeatData {
     pub dependencies: Vec<String>,
     pub lines: i32,
     pub lineno: Option<i32>,
-    pub cursorpos: Option<String>,
+    pub cursorpos: Option<i32>,
     pub is_write: Option<bool>,
 }
 

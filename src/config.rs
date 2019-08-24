@@ -1,9 +1,4 @@
 use std::io;
-use std::marker::PhantomData;
-
-use hex::FromHexError;
-use rand::{thread_rng, Rng};
-use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 use crate::utils::{as_hex, from_hex, generate_secret_key};
 
