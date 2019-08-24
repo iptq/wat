@@ -37,7 +37,4 @@ table! {
 
 joinable!(heartbeats -> users (user_id));
 
-allow_tables_to_appear_in_same_query!(
-    heartbeats,
-    users,
-);
+allow_tables_to_appear_in_same_query!(heartbeats, users,);

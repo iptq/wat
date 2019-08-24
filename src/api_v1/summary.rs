@@ -20,7 +20,7 @@ pub struct SummaryParams {
     branches: Option<String>,
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 struct SummaryInnerItem {
     name: String,
     total_seconds: f64,
@@ -32,7 +32,7 @@ struct SummaryInnerItem {
     seconds: Option<u8>,
 }
 
-#[derive(Serialize)]
+#[derive(Debug, Serialize)]
 struct SummaryRange {
     date: String,
     start: u64,
@@ -41,7 +41,7 @@ struct SummaryRange {
     timezone: String,
 }
 
-#[derive(Serialize, Default)]
+#[derive(Debug, Serialize, Default)]
 struct SummaryItem {
     projects: Vec<SummaryInnerItem>,
     languages: Vec<SummaryInnerItem>,
@@ -71,13 +71,10 @@ enum StatType {
 fn calculate_stat(
     by: StatType,
     heartbeats: &Vec<Heartbeat>,
-    timeout: usize,
+    timeout: u32,
     out: &mut HashMap<NaiveDateTime, SummaryItem>,
 ) {
-
-    for window in heartbeats.as_slice().windows(2) {
-
-    }
+    for window in heartbeats.as_slice().windows(2) {}
 }
 
 fn get_user_summaries(
@@ -91,10 +88,20 @@ fn get_user_summaries(
     let heartbeats = conn.heartbeats_interval(user.id, start_dt, end_dt, None)?;
     let mut data = HashMap::new();
 
-    calculate_stat(StatType::Project, &heartbeats, 900, &mut data);
-    calculate_stat(StatType::Language, &heartbeats, 900, &mut data);
-    calculate_stat(StatType::Editor, &heartbeats, 900, &mut data);
-    calculate_stat(StatType::OperatingSystem, &heartbeats, 900, &mut data);
+    calculate_stat(StatType::Project, &heartbeats, THRESHOLD_SECONDS, &mut data);
+    calculate_stat(
+        StatType::Language,
+        &heartbeats,
+        THRESHOLD_SECONDS,
+        &mut data,
+    );
+    calculate_stat(StatType::Editor, &heartbeats, THRESHOLD_SECONDS, &mut data);
+    calculate_stat(
+        StatType::OperatingSystem,
+        &heartbeats,
+        THRESHOLD_SECONDS,
+        &mut data,
+    );
 
     let data = data.into_iter().map(|(_, item)| item).collect();
     let result = SummaryResult {
@@ -130,25 +137,26 @@ pub fn current_user_summaries(
 
 #[test]
 fn test_calculate_stat() {
-    let activity = vec![
+    use chrono::NaiveDate;
 
+    let activity = vec![Heartbeat {
+        id: 1,
+        user_id: 1,
+        entity: "file1.rs".to_owned(),
+        entity_type: "file".to_owned(),
+        category: Some("coding".to_owned()),
+        time: NaiveDate::from_ymd(2019, 8, 22).and_hms(0, 0, 0),
+        project: Some("wat".into()),
+        branch: Some("master".into()),
+        language: Some("Rust".into()),
+        dependencies: None,
+        lines: 128,
+        line_number: None,
+        cursor_pos: Some(1770),
+        is_write: false,
+    }];
 
-Heartbeat {
-    id: 1,
-    user_id: 1,
-    entity: "file1.rs".to_owned(),
-    entity_type: "file".to_owned(),
-    category: Some("coding".to_owned()),
-    time: NaiveDateTime,
-    project: Some("wat".into()),
-    branch: Some("master".into()),
-    language: Some("Rust".into()),
-    dependencies: None,
-    lines: 128,
-    line_number: None,
-    cursor_pos: Some(1770),
-    is_write: false,
-}
-    ];
-
+    let mut out = HashMap::new();
+    calculate_stat(StatType::Project, &activity, THRESHOLD_SECONDS, &mut out);
+    panic!("out: {:?}", out);
 }
