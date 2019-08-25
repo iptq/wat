@@ -1,18 +1,18 @@
-use chrono::Utc;
+use chrono::{DateTime, Utc};
 use diesel::prelude::*;
 use rocket_contrib::json::Json;
 
 use super::Auth;
-use crate::db::{DbConn, PooledConn};
+use crate::db::DbConn;
 use crate::errors::Error;
-use crate::models::{Heartbeat, NewHeartbeat, User};
+use crate::models::{GetHeartbeat, Heartbeat, NewHeartbeat, User};
 
 #[derive(Serialize)]
 pub struct HeartbeatData {
     pub entity: String,
     pub entity_type: String,
     pub category: Option<String>,
-    pub time: f64,
+    pub time: DateTime<Utc>,
     pub project: Option<String>,
     pub branch: Option<String>,
     pub language: Option<String>,
@@ -26,8 +26,8 @@ pub struct HeartbeatData {
 #[derive(Serialize)]
 pub struct HeartbeatResult {
     pub data: Vec<HeartbeatData>,
-    pub start: i32,
-    pub end: i32,
+    pub start: DateTime<Utc>,
+    pub end: DateTime<Utc>,
     pub timezone: String,
 }
 
@@ -35,13 +35,19 @@ fn get_user_heartbeats(conn: &DbConn, user: &User) -> Json<HeartbeatResult> {
     use crate::schema::heartbeats::dsl::{heartbeats, user_id};
     let hbs: Vec<Heartbeat> = heartbeats
         .filter(user_id.eq(user.id))
-        .load(&conn.0)
+        .load::<GetHeartbeat>(&conn.0)
+        .map(|hbeats| {
+            hbeats
+                .into_iter()
+                .map(|heartbeat| heartbeat.into())
+                .collect()
+        })
         .unwrap();
 
     let result = HeartbeatResult {
         data: Vec::new(),
-        start: 0,
-        end: 0,
+        start: Utc::now(),
+        end: Utc::now(),
         timezone: "".to_string(),
     };
     Json(result)

@@ -9,7 +9,7 @@ use serde::{Deserialize, Deserializer, Serializer};
 pub use self::captcha::{Captcha, CaptchaText};
 pub use self::context::Context;
 pub use self::either::Either;
-pub use self::formdate::NaiveDate;
+pub use self::formdate::FormDate;
 
 /// Generate a random secret key.
 pub fn generate_secret_key() -> Vec<u8> {

@@ -1,10 +1,10 @@
-use chrono::NaiveDateTime;
+use chrono::{DateTime, Utc};
 use diesel::prelude::*;
 use diesel::result::Error::{NotFound, RollbackTransaction};
 use rocket_contrib::databases::diesel;
 
 use crate::errors::Error;
-use crate::models::{Heartbeat, NewUser, User};
+use crate::models::{GetHeartbeat, Heartbeat, NewUser, User};
 
 embed_migrations!("migrations");
 
@@ -63,11 +63,11 @@ impl DbConn {
             .map_err(Error::from)
     }
 
-    pub fn heartbeats_interval(
+    pub fn get_heartbeats_interval(
         &self,
         user_id: i32,
-        start: NaiveDateTime,
-        end: NaiveDateTime,
+        start: DateTime<Utc>,
+        end: DateTime<Utc>,
         project: Option<&str>,
     ) -> Result<Vec<Heartbeat>, Error> {
         use crate::schema::heartbeats::dsl;
@@ -75,10 +75,16 @@ impl DbConn {
             .filter(
                 dsl::user_id
                     .eq(user_id)
-                    .and(dsl::time.ge(start))
-                    .and(dsl::time.le(end)),
+                    .and(dsl::time.ge(start.naive_local()))
+                    .and(dsl::time.le(end.naive_local())),
             )
-            .load(&self.0)
+            .load::<GetHeartbeat>(&self.0)
+            .map(|heartbeats| {
+                heartbeats
+                    .into_iter()
+                    .map(|heartbeat| heartbeat.into())
+                    .collect()
+            })
             .map_err(Error::from)
     }
 }

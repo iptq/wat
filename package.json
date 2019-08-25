@@ -1,0 +1,31 @@
+{
+  "name": "wat",
+  "version": "0.1.0",
+  "description": "WaT",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "webpack-dev-server --content-base public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iptq/wat.git"
+  },
+  "author": "Michael Zhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iptq/wat/issues"
+  },
+  "homepage": "https://github.com/iptq/wat#readme",
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "css-loader": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "serve": "^11.1.0",
+    "style-loader": "^1.0.0",
+    "svelte": "^3.9.1",
+    "svelte-loader": "^2.13.6",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
